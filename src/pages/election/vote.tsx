@@ -60,8 +60,8 @@ const Home: NextPage = () => {
                 "Cargando"
               ) : (
                 <>
-                  <div className="flex w-[900px] flex-row justify-between border-2 border-solid border-white">
-                    <div className="border-2 border-solid border-white">
+                  <div className="flex w-[900px] flex-row border-2 border-solid border-white">
+                    <div className="flex flex-none flex-col gap-7 border-2 border-solid border-white p-7">
                       {users.map((user, k) => (
                         <User
                           data={user}
@@ -70,8 +70,10 @@ const Home: NextPage = () => {
                         />
                       ))}
                     </div>
-                    <div className="border-2 border-solid border-white">
-                      <h2>Votación</h2>
+                    <div className="flex-1 border-2 border-solid border-white">
+                      <h2 className="my-4 text-4xl">
+                        Votá a {currentUser.name}
+                      </h2>
                       <div>
                         <div>
                           {questions.map((question) => (

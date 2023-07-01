@@ -12,16 +12,18 @@ const Question = ({ key, label, onChange }: QuestionProps) => {
         <h1>{label}</h1>
       </div>
       <div>1 ,2 ,3 ,4 ,5 ,6 ,7, 8, 9, 10</div>
-      <Button
-        onClick={() =>
-          onChange({
-            key,
-            value: 1,
-          })
-        }
-      >
-        test
-      </Button>
+      <div className="flex flex-row justify-end">
+        <Button
+          onClick={() =>
+            onChange({
+              key,
+              value: 1,
+            })
+          }
+        >
+          test
+        </Button>
+      </div>
     </div>
   );
 };
