@@ -21,7 +21,7 @@ export const Connected = () => {
   return (
     <div className="space-y-4 text-center">
       <div className="flex flex-col content-center justify-center">
-        <Button onClick={() => void goToProfile()}>Ver Perfil</Button>
+        <Button onClick={() => void goToProfile()}>Mi Perfil</Button>
       </div>
     </div>
   );
