@@ -3,14 +3,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Footer from "~/components/footer";
-
 import users from "../../constants/users.json";
-
-import User from "../../components/voting/user";
-import Question from "./question";
-import questions from "../../constants/questions.json";
-import Button from "~/components/button";
+import questionsJson from "../../constants/questions.json";
 import type { User as IUser } from "~/types/user";
+import Ballot from "./ballot";
+import SidebarUsers from "~/components/voting/sidebarUsers";
+import { type IQuestion } from "~/types/question";
+import { type IResponseSet } from "~/types/response";
+
+const questions = questionsJson as IQuestion[];
 
 const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,10 +32,18 @@ const Home: NextPage = () => {
   };
 
   const clearQuestions = () => {
-    alert("cleared!");
+    alert("Clearing questions");
   };
 
-  const onNextUser = () => {
+  const onNextUser = (responses: IResponseSet) => {
+    console.dir("responses:");
+    console.dir(responses);
+
+    const updatedUser = {
+      ...currentUser,
+      responses,
+    };
+    setCurrentUser(updatedUser);
     const newIndex = currentIndex + 1;
     if (newIndex >= users.length) {
       setCurrentIndex(null);
@@ -42,6 +51,8 @@ const Home: NextPage = () => {
     }
 
     clearQuestions();
+
+    window.scrollTo(0, 0);
     setCurrentIndex(newIndex);
     setCurrentUser(users[newIndex]);
   };
@@ -61,38 +72,12 @@ const Home: NextPage = () => {
               ) : (
                 <>
                   <div className="flex w-[900px] flex-row border-2 border-solid border-white">
-                    <div className="flex flex-none flex-col gap-7 border-2 border-solid border-white p-7">
-                      {users.map((user, k) => (
-                        <User
-                          data={user}
-                          key={k}
-                          selected={currentUser.pub === user.pub}
-                        />
-                      ))}
-                    </div>
-                    <div className="flex-1 border-2 border-solid border-white">
-                      <h2 className="my-4 text-4xl">
-                        Votá a {currentUser.name}
-                      </h2>
-                      <div>
-                        <div>
-                          {questions.map((question) => (
-                            <Question
-                              key={question.key}
-                              label={question.label}
-                              onChange={() => {
-                                alert("yellaaa");
-                              }}
-                            />
-                          ))}
-                        </div>
-                        <div>
-                          <Button onClick={() => onNextUser()}>
-                            Votar finalmente
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <SidebarUsers currentUser={currentUser} users={users} />
+                    <Ballot
+                      currentUser={currentUser}
+                      onNextUser={onNextUser}
+                      questions={questions}
+                    />
                   </div>
                 </>
               )}

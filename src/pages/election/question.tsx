@@ -1,28 +1,25 @@
-import Button from "~/components/button";
+import Range from "~/components/voting/range";
+import { type IResponse } from "~/types/response";
+
 interface QuestionProps {
-  key: string;
+  id: string;
   label: string;
-  onChange: (event: { key: string; value: number }) => void;
+  onChange: (response: IResponse) => void;
 }
 
-const Question = ({ key, label, onChange }: QuestionProps) => {
+const Question = ({ id, label, onChange }: QuestionProps) => {
   return (
-    <div>
+    <div className="flex flex-col gap-1 border-b-2 border-white p-3 text-xl">
       <div>
         <h1>{label}</h1>
       </div>
-      <div>1 ,2 ,3 ,4 ,5 ,6 ,7, 8, 9, 10</div>
-      <div className="flex flex-row justify-end">
-        <Button
-          onClick={() =>
-            onChange({
-              key,
-              value: 1,
-            })
-          }
-        >
-          test
-        </Button>
+      <div>
+        <Range
+          initialValue={50}
+          onChange={(value) => {
+            onChange({ id, value });
+          }}
+        />
       </div>
     </div>
   );
