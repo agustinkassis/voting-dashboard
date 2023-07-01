@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { User as IUser } from "../../types/user";
 interface UserProps {
   selected?: boolean;
@@ -18,7 +17,7 @@ const User = ({ selected = false, data }: UserProps) => {
         href={`https://iris.to/${data.pub}`}
         className="flex items-center justify-center"
       >
-        <Image
+        <img
           alt={data.name}
           className="rounded-full"
           width={50}
@@ -29,7 +28,7 @@ const User = ({ selected = false, data }: UserProps) => {
       <div>
         <h1>{data.name}</h1>
       </div>
-      <div>{data.discord}</div>
+      <div>{data.handle}</div>
     </div>
   );
 };
