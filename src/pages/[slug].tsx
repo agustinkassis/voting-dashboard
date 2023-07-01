@@ -32,9 +32,8 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>NOSTR Hackaton - La Crypta</title>
+        <title>Discord Poll - La Crypta</title>
         <meta name="description" content="Created by La Crypta" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#15162c] to-[#2e026d] text-2xl text-white">
         <div className="container flex w-fit flex-col items-center justify-center gap-12 px-4 py-16">
