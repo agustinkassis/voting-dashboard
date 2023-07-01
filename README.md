@@ -1,4 +1,4 @@
-# NOSTR Hackaton Boilerplate
+# Discord Poll - La Crypta
 
 This boilerplate will provide the building blocks to create a **NOSTR WebApp**.
 
