@@ -12,7 +12,11 @@ const User = ({ selected = false, data }: UserProps) => {
   }
 
   return (
-    <div className={`flex flex-col justify-center`}>
+    <div
+      className={`flex flex-col justify-center p-7 hover:bg-gray-600 ${
+        selected ? "bg-gray-700" : ""
+      }`}
+    >
       <a
         href={`https://iris.to/${data.pub}`}
         className="flex items-center justify-center"
