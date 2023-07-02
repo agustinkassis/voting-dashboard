@@ -5,9 +5,7 @@ interface IBallotContext {
   election?: string;
   setElection: React.Dispatch<React.SetStateAction<string | undefined>>;
   responses?: IResponseBundle;
-  setResponses: React.Dispatch<
-    React.SetStateAction<IResponseBundle | undefined>
-  >;
+  setResponses: React.Dispatch<React.SetStateAction<IResponseBundle>>;
   saveResponses: (userPub: string, _responses: IResponseSet) => void;
 }
 
@@ -23,7 +21,7 @@ interface BallotProviderProps {
 
 export const BallotProvider = ({ children }: BallotProviderProps) => {
   const [election, setElection] = useState<string | undefined>();
-  const [responses, setResponses] = useState<IResponseBundle | undefined>();
+  const [responses, setResponses] = useState<IResponseBundle>({});
 
   const saveResponses = (userPub: string, _responses: IResponseSet) => {
     setResponses((responses) => {
