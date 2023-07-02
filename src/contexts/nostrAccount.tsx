@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import useWebLN from "~/hooks/useWebLN";
 import type NostrExtensionProvider from "~/types/nostr";
 
+const timeoutCheck = parseInt(
+  process.env.NEXT_PUBLIC_NOSTR_BOOT_TIMEOUT_CHECK || "2000"
+);
 // Global window.nostr
 declare global {
   interface Window {
@@ -13,6 +16,7 @@ declare global {
 export interface NostrAccountContextProps {
   pubKey?: string;
   nostr?: NostrExtensionProvider;
+  isLoading: boolean;
   login: () => Promise<string | null>;
 }
 
@@ -24,6 +28,7 @@ export interface NostrAccountProviderProps {
 // NostrAccountContext component
 export const NostrAccountContext =
   React.createContext<NostrAccountContextProps>({
+    isLoading: false,
     login: () => Promise.resolve(null),
   });
 
@@ -34,15 +39,34 @@ export const NostrAccountProvider = ({
   const { connect } = useWebLN();
 
   const [pubKey, setPubKey] = React.useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [nostr, setNostr] = React.useState<NostrExtensionProvider | undefined>(
     undefined
   );
+
+  console.info("process.env: ");
+  console.dir(process.env);
+  useEffect(() => {
+    if (!nostr) {
+      setTimeout(() => {
+        if (window.nostr) {
+          setNostr(window.nostr);
+        }
+        setIsLoading(false);
+      }, timeoutCheck);
+      return;
+    }
+
+    setIsLoading(false);
+  }, []);
 
   // Login with Alby extension
   const login = async (): Promise<string | null> => {
     if (!nostr) {
       return null;
     }
+
+    setIsLoading(true);
 
     try {
       // Enable webln
@@ -63,6 +87,8 @@ export const NostrAccountProvider = ({
       alert("Please approve Alby request");
       console.error("Error while login: ", (e as Error).message);
       return null;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,6 +107,7 @@ export const NostrAccountProvider = ({
       value={{
         pubKey: pubKey,
         nostr,
+        isLoading,
         login,
       }}
     >
