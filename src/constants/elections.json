@@ -1,0 +1,28 @@
+[
+  {
+    "id": "first",
+    "voters": [
+      "sdfw45trgrsgrtsgs",
+      "h78ehd9hedhasduasdiuhasukd",
+      "3quhrwearua8hufidsuanfuidsnf"
+    ],
+    "candidates": [
+      "sdfw45trgrsgrtsgs",
+      "h78ehd9hedhasduasdiuhasukd",
+      "3quhrwearua8hufidsuanfuidsnf"
+    ]
+  },
+  {
+    "id": "second",
+    "voters": [
+      "sdfw45trgrsgrtsgs",
+      "h78ehd9hedhasduasdiuhasukd",
+      "3quhrwearua8hufidsuanfuidsnf"
+    ],
+    "candidates": [
+      "sdfw45trgrsgrtsgs",
+      "h78ehd9hedhasduasdiuhasukd",
+      "3quhrwearua8hufidsuanfuidsnf"
+    ]
+  }
+]
