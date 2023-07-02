@@ -8,22 +8,33 @@ import type { IResponse, IResponseSet } from "~/types/response";
 interface BallotProps {
   currentUser: User;
   questions: IQuestion[];
+  initialResponses: IResponseSet;
+  lastUser?: boolean;
   onNextUser: (responses: IResponseSet) => void;
 }
 
-const Ballot = ({ currentUser, questions, onNextUser }: BallotProps) => {
-  const [responses, setResponses] = useState<IResponseSet>({
-    honestidad: null,
-    humildad: null,
-    innovacion: null,
-    libertad: null,
-    merito: null,
-    racionalidad: null,
-    sinergia: null,
-  });
+const Ballot = ({
+  currentUser,
+  questions,
+  initialResponses,
+  lastUser = false,
+  onNextUser,
+}: BallotProps) => {
+  const [responses, setResponses] = useState<IResponseSet>(initialResponses);
 
+  const createNullResponses = (): IResponseSet => {
+    return {
+      honestidad: null,
+      humildad: null,
+      innovacion: null,
+      libertad: null,
+      merito: null,
+      racionalidad: null,
+      sinergia: null,
+    };
+  };
   const clearResponses = () => {
-    // setResponses(createNullResponses());
+    setResponses(createNullResponses());
   };
 
   const handleResponse = (response: IResponse) => {
@@ -45,27 +56,36 @@ const Ballot = ({ currentUser, questions, onNextUser }: BallotProps) => {
 
   return (
     <div className="flex-1 border-2 border-solid border-white">
-      <h2 className="mb-6 border-b-2 border-white p-4 text-4xl">
-        {/* Votá a {currentUser.name} */}
-      </h2>
-      <div>
-        <div className="flex flex-col gap-2">
-          {questions &&
-            questions.map((question, k) => (
-              <Question
-                id={question.id}
-                key={k}
-                label={question.label}
-                onChange={handleResponse}
-              />
-            ))}
-        </div>
-        <div className="">
-          <Button className="block w-full" onClick={() => save()}>
-            Votar finalmente
-          </Button>
-        </div>
-      </div>
+      {currentUser && currentUser !== null && (
+        <>
+          <h2 className="mb-6 border-b-2 border-white p-4 text-4xl">
+            Votá a {currentUser.name}
+          </h2>
+          <div>
+            <div className="flex flex-col gap-2">
+              {questions &&
+                questions.map((question) => (
+                  <Question
+                    id={question.id}
+                    key={`${currentUser.pub}_${question.id}`}
+                    initialValue={50}
+                    label={question.label}
+                    onChange={handleResponse}
+                  />
+                ))}
+            </div>
+            <div className="">
+              <Button className="block w-full" onClick={() => save()}>
+                {lastUser ? (
+                  <span>Votar finalmente</span>
+                ) : (
+                  <span>Siguiente</span>
+                )}
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

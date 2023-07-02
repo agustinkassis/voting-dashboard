@@ -4,6 +4,7 @@ import { WebLNProvider } from "~/contexts/webln";
 
 import "~/styles/globals.css";
 import { NostrRelayProvider } from "~/contexts/nostrRelay";
+import { BallotProvider } from "contexts/Ballot";
 
 const relayUrls = [
   // "wss://nostr1.tunnelsats.com",
@@ -24,7 +25,9 @@ const NostrApp: AppType = ({ Component, pageProps }) => {
     <NostrRelayProvider relayUrls={relayUrls}>
       <WebLNProvider>
         <NostrAccountProvider>
-          <Component {...pageProps} />
+          <BallotProvider>
+            <Component {...pageProps} />
+          </BallotProvider>
         </NostrAccountProvider>
       </WebLNProvider>
     </NostrRelayProvider>

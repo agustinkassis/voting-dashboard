@@ -4,10 +4,16 @@ import { type IResponse } from "~/types/response";
 interface QuestionProps {
   id: string;
   label: string;
+  initialValue?: number;
   onChange: (response: IResponse) => void;
 }
 
-const Question = ({ id, label, onChange }: QuestionProps) => {
+const Question = ({
+  id,
+  label,
+  initialValue = 50,
+  onChange,
+}: QuestionProps) => {
   return (
     <div className="flex flex-col gap-1 border-b-2 border-white p-3 text-xl">
       <div>
@@ -15,7 +21,7 @@ const Question = ({ id, label, onChange }: QuestionProps) => {
       </div>
       <div>
         <Range
-          initialValue={50}
+          initialValue={initialValue}
           onChange={(value) => {
             onChange({ id, value });
           }}

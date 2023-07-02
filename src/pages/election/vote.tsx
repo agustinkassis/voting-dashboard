@@ -10,6 +10,7 @@ import Ballot from "./ballot";
 import SidebarUsers from "~/components/voting/sidebarUsers";
 import { type IQuestion } from "~/types/question";
 import { type IResponseSet } from "~/types/response";
+import { useBallot } from "contexts/Ballot";
 
 const questions = questionsJson as IQuestion[];
 
@@ -20,7 +21,18 @@ const Home: NextPage = () => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(0);
 
   const router = useRouter();
+  const ballot = useBallot();
   const { slug } = router.query;
+
+  const initialResponses = {
+    honestidad: null,
+    humildad: null,
+    innovacion: null,
+    libertad: null,
+    merito: null,
+    racionalidad: null,
+    sinergia: null,
+  };
 
   useEffect(() => {
     setIsLoading(false);
@@ -31,10 +43,6 @@ const Home: NextPage = () => {
     alert("Listooo");
   };
 
-  const clearQuestions = () => {
-    alert("Clearing questions");
-  };
-
   const onNextUser = (responses: IResponseSet) => {
     console.dir("responses:");
     console.dir(responses);
@@ -43,6 +51,9 @@ const Home: NextPage = () => {
       ...currentUser,
       responses,
     };
+
+    ballot.saveResponses(currentUser.pub, responses);
+
     setCurrentUser(updatedUser);
     const newIndex = currentIndex + 1;
     if (newIndex >= users.length) {
@@ -50,12 +61,23 @@ const Home: NextPage = () => {
       promptFinish();
     }
 
-    clearQuestions();
-
     window.scrollTo(0, 0);
     setCurrentIndex(newIndex);
     setCurrentUser(users[newIndex]);
   };
+
+  useEffect(() => {
+    if (currentIndex === null) {
+      setCurrentUser(null);
+      return;
+    }
+    setCurrentUser(users[currentIndex]);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    ballot.setElection("first-election");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -72,12 +94,22 @@ const Home: NextPage = () => {
               ) : (
                 <>
                   <div className="flex w-[900px] flex-row border-2 border-solid border-white">
-                    <SidebarUsers currentUser={currentUser} users={users} />
-                    <Ballot
+                    <SidebarUsers
                       currentUser={currentUser}
-                      onNextUser={onNextUser}
-                      questions={questions}
+                      users={users}
+                      setCurrentIndex={setCurrentIndex}
                     />
+                    {currentUser ? (
+                      <Ballot
+                        currentUser={currentUser}
+                        initialResponses={initialResponses}
+                        lastUser={currentIndex + 1 >= users.length}
+                        questions={questions}
+                        onNextUser={onNextUser}
+                      />
+                    ) : (
+                      "Seleccioná un usuario"
+                    )}
                   </div>
                 </>
               )}
