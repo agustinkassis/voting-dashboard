@@ -25,15 +25,8 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#15162c] to-[#2e026d] text-2xl text-white">
         <div className="container flex flex-col items-center justify-center gap-8 px-4 py-16 ">
           <Title />
-          <Button onClick={() => void router.push("election/vote")}>
-            Votar
-          </Button>
-          <Button
-            onClick={() => {
-              alert("");
-            }}
-          >
-            Ver Resultados
+          <Button onClick={() => void router.push("elections")}>
+            Lista de Votaciones
           </Button>
           {isEnabled && pubKey ? <Connected /> : <NotConnected />}
         </div>

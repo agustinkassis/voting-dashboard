@@ -3,10 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Footer from "~/components/footer";
-import users from "../../constants/users.json";
-import questionsJson from "../../constants/questions.json";
+import users from "../../../constants/users.json";
+import questionsJson from "../../../constants/questions.json";
 import type { User as IUser } from "~/types/user";
-import Ballot from "./ballot";
+import Ballot from "../ballot";
 import SidebarUsers from "~/components/voting/sidebarUsers";
 import { type IQuestion } from "~/types/question";
 import { type IResponseSet } from "~/types/response";
@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
   const router = useRouter();
   const ballot = useBallot();
-  const { slug } = router.query;
+  const { id: electionId } = router.query;
 
   const initialResponses = {
     honestidad: null,
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [electionId]);
 
   const promptFinish = () => {
     alert("Listooo");
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
   }, [currentIndex]);
 
   useEffect(() => {
-    ballot.setElection("first-election");
+    ballot.setElection(electionId as string);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
