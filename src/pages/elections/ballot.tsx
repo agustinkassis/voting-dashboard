@@ -9,7 +9,7 @@ import { useBallot } from "contexts/Ballot";
 interface BallotProps {
   currentUser: User;
   questions: IQuestion[];
-  initialResponses: IResponseSet;
+  initialResponses?: IResponseSet;
   lastUser?: boolean;
   onNextUser: (responses: IResponseSet) => void;
 }
@@ -21,7 +21,17 @@ const Ballot = ({
   lastUser = false,
   onNextUser,
 }: BallotProps) => {
-  const [responses, setResponses] = useState<IResponseSet>(initialResponses);
+  const [responses, setResponses] = useState<IResponseSet>(
+    initialResponses && {
+      honestidad: null,
+      humildad: null,
+      innovacion: null,
+      libertad: null,
+      merito: null,
+      racionalidad: null,
+      sinergia: null,
+    }
+  );
 
   const ballot = useBallot();
   const createNullResponses = (): IResponseSet => {

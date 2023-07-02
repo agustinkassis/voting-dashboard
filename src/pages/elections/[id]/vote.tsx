@@ -24,16 +24,6 @@ const Home: NextPage = () => {
   const ballot = useBallot();
   const { id: electionId } = router.query;
 
-  const initialResponses = {
-    honestidad: null,
-    humildad: null,
-    innovacion: null,
-    libertad: null,
-    merito: null,
-    racionalidad: null,
-    sinergia: null,
-  };
-
   useEffect(() => {
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +92,6 @@ const Home: NextPage = () => {
                     {currentUser ? (
                       <Ballot
                         currentUser={currentUser}
-                        initialResponses={initialResponses}
                         lastUser={currentIndex + 1 >= users.length}
                         questions={questions}
                         onNextUser={onNextUser}
