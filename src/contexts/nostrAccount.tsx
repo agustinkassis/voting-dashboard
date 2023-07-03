@@ -44,8 +44,8 @@ export const NostrAccountProvider = ({
     undefined
   );
 
-  console.info("process.env: ");
-  console.dir(process.env);
+  // console.info("process.env: ");
+  // console.dir(process.env);
   useEffect(() => {
     if (!nostr) {
       setTimeout(() => {
@@ -58,6 +58,7 @@ export const NostrAccountProvider = ({
     }
 
     setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Login with Alby extension

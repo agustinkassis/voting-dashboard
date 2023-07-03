@@ -10,7 +10,7 @@ import Ballot from "../ballot";
 import SidebarUsers from "~/components/voting/sidebarUsers";
 import { type IQuestion } from "~/types/question";
 import { type IResponseSet } from "~/types/response";
-import { useBallot } from "contexts/Ballot";
+import { useBallot } from "~/contexts/ballot";
 
 const questions = questionsJson as IQuestion[];
 

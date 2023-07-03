@@ -4,7 +4,7 @@ import { WebLNProvider } from "~/contexts/webln";
 
 import "~/styles/globals.css";
 import { NostrRelayProvider } from "~/contexts/nostrRelay";
-import { BallotProvider } from "contexts/Ballot";
+import { BallotProvider } from "~/contexts/ballot";
 
 const relayUrls = [
   // "wss://nostr1.tunnelsats.com",

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Footer from "~/components/footer";
 // import users from "../../../constants/users.json";
-import { useBallot } from "contexts/Ballot";
+import { useBallot } from "~/contexts/ballot";
 import Button from "~/components/button";
 
 const Home: NextPage = () => {
@@ -35,8 +35,9 @@ const Home: NextPage = () => {
                 "Cargando"
               ) : (
                 <>
-                  <div className="flex w-[900px] flex-row flex-col border-2 border-solid border-white">
+                  <div className="flex w-[900px] flex-col border-2 border-solid border-white">
                     <div>Election {electionId}</div>
+                    <div>datos</div>
                     <Button
                       onClick={() =>
                         void router.push(`/elections/${electionId}/vote`)

@@ -4,7 +4,7 @@ import Question from "./question";
 import Button from "~/components/button";
 import { useEffect, useState } from "react";
 import type { IResponse, IResponseSet } from "~/types/response";
-import { useBallot } from "contexts/Ballot";
+import { useBallot } from "~/contexts/ballot";
 
 interface BallotProps {
   currentUser: User;

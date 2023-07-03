@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IResponseBundle, IResponseSet } from "~/types/response";
+import type { IResponseBundle, IResponseSet } from "~/types/response";
 
 interface IBallotContext {
   election?: string;
@@ -10,9 +10,9 @@ interface IBallotContext {
 }
 
 const BallotContext = React.createContext<IBallotContext>({
-  setElection: (_s: string) => {},
-  setResponses: (_r: IResponseBundle) => {},
-  saveResponses: (userPub: string, _responses: IResponseSet) => {},
+  setElection: (_s: string) => undefined,
+  setResponses: (_r: IResponseBundle) => undefined,
+  saveResponses: (_userPub: string, _responses: IResponseSet) => undefined,
 });
 
 interface BallotProviderProps {
