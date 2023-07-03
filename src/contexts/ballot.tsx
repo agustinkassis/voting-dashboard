@@ -34,6 +34,14 @@ export const BallotProvider = ({ children }: BallotProviderProps) => {
     });
   };
 
+  // const cast = () => {
+  //   // Generate a ballot
+  //   const ballot: IBallot = {
+  //     election: election, // needs election to be IElection
+  //     responses: responses,
+  //   };
+  // };
+
   return (
     <BallotContext.Provider
       value={{
